@@ -3,7 +3,7 @@ import type { GameConfig } from "@/types/site";
 export const gameConfig: GameConfig = {
   name: "Brookhaven RP",
   slug: "brookhaven-rp",
-  domain: "https://brookhavenaqaa.org",
+  domain: "https://brookhavenrp.store",
   theme: {
     primaryColor: "#FACC15",
     accentColor: "#38BDF8",
@@ -23,7 +23,7 @@ export const gameConfig: GameConfig = {
   },
   updateCadence: "Weekly checks",
   dataSources: {
-    officialGameUrl: "https://www.roblox.com/discover",
+    officialGameUrl: "https://www.roblox.com/games/4924922222/Brookhaven-RP",
     discord: "#",
     trello: "#"
   },
