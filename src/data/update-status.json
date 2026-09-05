@@ -1,0 +1,30 @@
+{
+  "gameSlug": "collectletters",
+  "status": "bootstrap-ready",
+  "checkedAt": null,
+  "checkedDate": null,
+  "checks": {
+    "requiredRoutes": [
+      "/",
+      "/codes",
+      "/tier-list",
+      "/trello",
+      "/calculator",
+      "/squad-planner",
+      "/resource-calculator",
+      "/guides",
+      "/guides/beginner",
+      "/guides/progression",
+      "/guides/farming",
+      "/wiki",
+      "/wiki/items-and-rewards",
+      "/wiki/maps-and-systems",
+      "/wiki/builds-and-entities",
+      "/updates"
+    ],
+    "missingRouteFiles": []
+  },
+  "notes": [
+    "Keep new page updates focused on player questions, current game details, and clear navigation."
+  ]
+}
