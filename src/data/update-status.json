@@ -1,0 +1,33 @@
+{
+  "gameSlug": "pokemmo-bw2",
+  "status": "pass",
+  "checkedAt": "2026-09-05T07:48:31.861Z",
+  "checkedDate": "2026-09-05",
+  "checks": {
+    "requiredRoutes": [
+      "/",
+      "/preview",
+      "/features",
+      "/features/side-content",
+      "/download",
+      "/updates",
+      "/codes",
+      "/tier-list",
+      "/trello",
+      "/calculator",
+      "/guides",
+      "/guides/preview-preparation",
+      "/wiki",
+      "/sources",
+      "/about",
+      "/contact",
+      "/privacy",
+      "/terms",
+      "/disclosure"
+    ],
+    "missingRouteFiles": []
+  },
+  "notes": [
+    "Keep new page updates focused on player questions, current game details, and clear navigation."
+  ]
+}

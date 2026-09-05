@@ -1,0 +1,2 @@
+# Add publisher-authorized seller lines before monetization.
+# Keep this file present from bootstrap so deployment checks and ad onboarding have a stable path.

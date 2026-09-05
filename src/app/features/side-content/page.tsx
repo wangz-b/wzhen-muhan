@@ -1,0 +1,18 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { featureRecords } from "@/data/features";
+import { siteConfig } from "@/data/site";
+import { AdsterraArticleBottom, AdsterraArticleMid, AdsterraArticleTop } from "@/components/ads";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
+import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
+
+const ids = new Set(["pwt","pokestar","join-avenue","tower-treehollow"]);
+const faq = [
+  {q:"Is the Pokémon World Tournament confirmed for PokeMMO B2/W2?",a:"Not in the official sources checked on September 5, 2026."},
+  {q:"Is Pokéstar Studios confirmed?",a:"No. Its original-game presence does not confirm a PokeMMO implementation."},
+  {q:"Is Join Avenue confirmed?",a:"No. The site tracks it as an original B2/W2 feature awaiting PokeMMO evidence."},
+  {q:"Are Black Tower and White Treehollow confirmed?",a:"No. They remain implementation questions until official notes or direct preview observation support them."},
+  {q:"Why keep a page when these features are unknown?",a:"Players search these exact questions. A dated status answer prevents cartridge information and speculation from being mistaken for PokeMMO facts."}
+];
+export const metadata: Metadata = {title:"PokeMMO B2/W2 Side Content Status",description:"Check the PokeMMO status of PWT, Pokéstar Studios, Join Avenue, Black Tower and White Treehollow without assuming cartridge feature parity.",alternates:{canonical:`${siteConfig.domain}/features/side-content`}};
+export default function SideContentPage(){const items=featureRecords.filter((item)=>ids.has(item.id));return <main className="mx-auto max-w-7xl px-4 py-10"><BreadcrumbJsonLd items={[{name:"Home",href:"/"},{name:"Feature Tracker",href:"/features"},{name:"Side Content",href:"/features/side-content"}]} /><FaqJsonLd items={faq}/><Breadcrumbs items={[{label:"Feature Tracker",href:"/features"},{label:"Side Content",href:"/features/side-content"}]} /><PageIntro eyebrow="Implementation watch" title="PokeMMO B2/W2 side-content status" description="PWT, Pokéstar Studios, Join Avenue, Black Tower and White Treehollow are familiar cartridge features. Here is the separate PokeMMO answer for each one."/><AdsterraArticleTop/><section className="mt-10 grid gap-4 md:grid-cols-2">{items.map((item)=><article key={item.id} className="content-card"><span className="status-pill">Not confirmed</span><h2 className="mt-4 text-xl font-bold text-white">{item.title}</h2><p className="mt-3 text-sm leading-6 text-white/65">{item.summary}</p><p className="mt-4 text-xs text-white/45">{item.sourceLabel} · Checked {item.checkedDate}</p></article>)}</section><AdsterraArticleMid/><section className="mt-10 content-card"><SectionHeader eyebrow="How to read this page" title="Unknown is a useful answer" copy="A missing confirmation means do not plan a team, purchase or preview route around the feature yet. Recheck official notes near the event." /></section><section className="mt-10 content-card"><SectionHeader eyebrow="Questions" title="Side-content FAQ"/><div className="mt-5 grid gap-3">{faq.map((item)=><details key={item.q} className="rounded-xl border border-white/10 p-4"><summary className="cursor-pointer font-bold text-white">{item.q}</summary><p className="mt-3 text-sm text-white/65">{item.a}</p></details>)}</div></section><nav className="mt-8 flex flex-wrap gap-3"><Link href="/features" className="button-secondary">All feature statuses</Link><Link href="/sources" className="button-secondary">Review sources</Link><Link href="/preview" className="button-secondary">Preview guide</Link></nav><AdsterraArticleBottom/></main>}
