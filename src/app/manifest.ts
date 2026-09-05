@@ -4,9 +4,9 @@ export const dynamic = "force-static";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "CollectLetters Calculator",
-    short_name: "CollectLette",
-    description: "Tool-first Roblox hub for CollectLetters with codes, calculators, and strategy pages.",
+    name: "BW2 Signal — PokeMMO B2/W2 Preview Tracker",
+    short_name: "BW2 Signal",
+    description: "Independent PokeMMO B2/W2 preview countdown, feature tracker, and safe preparation hub.",
     start_url: "/",
     display: "standalone",
     background_color: "#0d1108",

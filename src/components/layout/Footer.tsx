@@ -14,10 +14,10 @@ export function Footer() {
           <div>
             <h3 className="text-sm font-bold text-white">Core pages</h3>
             <div className="mt-3 grid gap-2 text-sm text-white/62">
-              <Link href="/codes" className="hover:text-white">Codes</Link>
-              <Link href="/tier-list" className="hover:text-white">Tier List</Link>
-              <Link href="/trello" className="hover:text-white">Trello/Discord</Link>
-              <Link href="/calculator" className="hover:text-white">Calculator</Link>
+              <Link href="/preview" className="hover:text-white">Preview Guide</Link>
+              <Link href="/features" className="hover:text-white">Feature Tracker</Link>
+              <Link href="/trello" className="hover:text-white">Official Links</Link>
+              <Link href="/calculator" className="hover:text-white">Countdown</Link>
               <Link href="/guides" className="hover:text-white">Guides</Link>
             </div>
           </div>
@@ -52,7 +52,7 @@ export function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-white/10 pt-5 text-sm text-white/42">
-          {siteConfig.domain.replace("https://", "")} is an unofficial fan-made Roblox resource.
+          {siteConfig.domain.replace("https://", "")} is an independent fan resource and is not endorsed by PokeMMO, Nintendo, The Pokémon Company, Pokémon, or Patrouski.
         </div>
       </div>
     </footer>

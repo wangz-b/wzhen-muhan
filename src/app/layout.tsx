@@ -15,7 +15,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.domain),
   title: {
-    default: `${siteConfig.gameName} Codes, Tier List and Tools`,
+    default: `${siteConfig.gameName} Preview Tracker and Guide`,
     template: `%s | ${siteConfig.gameName}`
   },
   description: siteConfig.description,
@@ -35,13 +35,13 @@ export const metadata: Metadata = {
     type: "website",
     url: siteConfig.domain,
     siteName: siteConfig.name,
-    title: `${siteConfig.gameName} Codes and Tools`,
+    title: `${siteConfig.gameName} Preview Tracker`,
     description: siteConfig.description,
     images: [{ url: "/opengraph-image" }]
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.gameName} Codes and Tools`,
+    title: `${siteConfig.gameName} Preview Tracker`,
     description: siteConfig.description,
     images: ["/opengraph-image"]
   },

@@ -18,7 +18,7 @@ export default function ContactPage() {
       <PageIntro
         eyebrow="Contact us"
         title="Corrections and source updates"
-        description="Use this page for site corrections, source updates, and editorial feedback. Official game support belongs on Roblox and creator-owned channels."
+        description="Use this page for site corrections, source updates, rights concerns, and editorial feedback. Official game support belongs with PokeMMO."
       />
       <section className="mt-10 grid gap-4">
         <article className="content-card">
@@ -40,8 +40,8 @@ export default function ContactPage() {
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">Official support boundary</h2>
           <p className="mt-2 leading-7 text-white/68">
-            We cannot recover Roblox accounts, handle purchases, moderate players, grant rewards, or speak
-            for the game creators. Use Roblox and creator-owned channels for official support.
+            We cannot recover PokeMMO accounts, handle purchases, moderate players, grant rewards, or speak
+            for PokeMMO. Use the official PokeMMO support site for account and client help.
           </p>
         </article>
       </section>

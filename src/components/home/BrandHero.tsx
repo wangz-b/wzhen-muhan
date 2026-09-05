@@ -5,7 +5,7 @@ import { heroActions, siteConfig } from "@/data/site";
 export function BrandHero() {
   return (
     <section className="hero-shell">
-      <Image src="/game-cover.png" alt="CollectLetters official Roblox cover art" width={768} height={432} priority sizes="100vw" className="hero-bg" />
+      <Image src="/game-cover.png" alt="Original night expedition signal station overlooking a mountain route" width={768} height={432} priority sizes="100vw" className="hero-bg" />
       <div className="hero-scrim" />
       <div className="mx-auto flex min-h-[620px] max-w-7xl items-end px-4 py-10">
         <div className="relative w-full min-w-0 max-w-4xl pb-8">

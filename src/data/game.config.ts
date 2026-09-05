@@ -1,18 +1,18 @@
 import type { GameConfig } from "@/types/site";
 
 export const gameConfig: GameConfig = {
-  name: "CollectLetters",
-  slug: "collectletters",
-  domain: "https://collectletters.online",
+  name: "PokeMMO BW2",
+  slug: "pokemmo-bw2",
+  domain: "https://patrouski.shop",
   theme: {
-    primaryColor: "#FACC15",
+    primaryColor: "#22D3EE",
     accentColor: "#38BDF8",
-    surfaceColor: "#111113",
-    style: "roblox-seo-hub"
+    surfaceColor: "#08111F",
+    style: "expedition-signal-desk"
   },
   currency: {
-    name: "Coins",
-    abbr: "COINS"
+    name: "Pokéyen",
+    abbr: "¥"
   },
   features: {
     hasCalculator: true,
@@ -23,9 +23,8 @@ export const gameConfig: GameConfig = {
   },
   updateCadence: "Weekly checks",
   dataSources: {
-    officialGameUrl: "https://www.roblox.com/discover",
-    discord: "#",
-    trello: "#"
+    officialGameUrl: "https://pokemmo.com/en/",
+    discord: "https://support.pokemmo.com/"
   },
   ads: {
     publisher: "Adsterra",

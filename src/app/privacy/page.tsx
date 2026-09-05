@@ -24,9 +24,9 @@ export default function PrivacyPage() {
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">Information we do not ask for</h2>
           <p className="mt-2 leading-7 text-white/68">
-            Do not enter Roblox passwords, payment details, account recovery information, private messages,
-            or moderation requests on this site. Official Roblox account and purchase support belongs on
-            Roblox or creator-owned support channels.
+            Do not enter PokeMMO passwords, payment details, account recovery information, private messages,
+            or moderation requests on this site. Official PokeMMO account and purchase support belongs on
+            PokeMMO or creator-owned support channels.
           </p>
         </article>
 
@@ -58,7 +58,7 @@ export default function PrivacyPage() {
         </article>
 
         <article className="content-card">
-          <h2 className="text-xl font-bold text-white">Children and Roblox players</h2>
+          <h2 className="text-xl font-bold text-white">Children and PokeMMO players</h2>
           <p className="mt-2 leading-7 text-white/68">
             This site is an informational fan resource and is not meant to collect personal information
             from children. Players should not send personal contact details, account details, or private
@@ -68,7 +68,7 @@ export default function PrivacyPage() {
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">Third-party links and retention</h2>
           <p className="mt-2 leading-7 text-white/68">
-            Links to Roblox, Discord, Trello, YouTube, analytics providers, and ad networks are separate
+            Links to PokeMMO, YouTube, analytics providers, and ad networks are separate
             services with their own policies. Server logs and analytics records are kept only as long as
             useful for security, operations, measurement, or legal compliance.
           </p>

@@ -33,16 +33,13 @@ export function SoftwareApplicationJsonLd() {
     <JsonLd
       data={{
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        name: `${siteConfig.gameName} Calculator`,
-        operatingSystem: "Web",
-        applicationCategory: "GameApplication",
-        offers: {
-          "@type": "Offer",
-          price: "0",
-          priceCurrency: "USD"
-        },
-        description: `Free ${siteConfig.gameName} Roblox calculator and decision helper.`
+        "@type": "WebApplication",
+        name: `${siteConfig.gameName} Preview Countdown and Evidence Tracker`,
+        url: `${siteConfig.domain}/calculator`,
+        operatingSystem: "Any browser",
+        applicationCategory: "Game companion utility",
+        isAccessibleForFree: true,
+        description: `A browser-based ${siteConfig.gameName} preview countdown and evidence-state explorer.`
       }}
     />
   );

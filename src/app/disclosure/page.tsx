@@ -14,13 +14,13 @@ export default function DisclosurePage() {
       <Breadcrumbs items={[{ label: "Disclosure", href: "/disclosure" }]} />
       <PageIntro
         eyebrow="Fan-made disclosure"
-        title="Unofficial Roblox fan resource"
-        description={`${siteConfig.name} is not operated by Roblox, the game creators, or an official support team. It is a community information site built from public sources.`}
+        title="Unofficial PokeMMO fan resource"
+        description={`${siteConfig.name} and patrouski.shop are independent fan resources. They are not affiliated with or endorsed by PokeMMO, Nintendo, The Pokémon Company, Pokémon, or Patrouski.`}
       />
       <section className="mt-10 content-card">
         <h2 className="text-2xl font-bold text-white">Official sources remain authoritative</h2>
         <p className="mt-3 leading-7 text-white/68">
-          If this site, a community tracker, and the official Roblox game page disagree, treat the official Roblox page and live in-game behavior as more authoritative.
+          If this site, a community tracker, and the official PokeMMO game page disagree, treat the official PokeMMO page and live in-game behavior as more authoritative.
         </p>
       </section>
 
@@ -28,17 +28,16 @@ export default function DisclosurePage() {
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">Advertising and sponsored links</h2>
           <p className="mt-2 leading-7 text-white/68">
-            This site may show advertising, smart links, sponsored links, or affiliate-style placements
-            when monetization is enabled. Ads do not change the source standard for codes, rankings,
-            wiki notes, or correction decisions.
+            This site may show advertising or sponsored links when monetization is enabled and configured.
+            Advertising does not influence feature status, source precedence, or correction decisions.
           </p>
         </article>
 
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">Corrections</h2>
           <p className="mt-2 leading-7 text-white/68">
-            Use the contact page to report outdated codes, missing official links, unclear rankings,
-            or rights concerns.
+            Use the contact page to report outdated dates, missing official links, unclear feature status,
+            attribution issues, or rights concerns.
           </p>
         </article>
       </section>

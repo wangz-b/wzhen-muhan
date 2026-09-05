@@ -1,168 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { siteConfig, wikiCards, wikiTopicPages } from "@/data/site";
+import { siteConfig } from "@/data/site";
+import { featureRecords } from "@/data/features";
 import { AdsterraArticleBottom, AdsterraArticleMid, AdsterraArticleTop } from "@/components/ads";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
 
-const coreSystems = [
-  {
-    title: "Letters and packs",
-    body: "Open letter packs from Common through MYTHIC, then mount the first copy of each A–Z letter on your 26-slot board. Exact pools and odds are not published here because they are not verified."
-  },
-  {
-    title: "Money and upgrades",
-    body: "Mounted letters generate Money over time. Money funds more packs and the Money, Luck, and Pack Speed upgrade paths; check the live game for current prices and scaling."
-  },
-  {
-    title: "Diamonds and Symbols",
-    body: "Spare letters can be sold for Diamonds, which fund secret Symbol packs. Keep board and daily-word copies reserved before treating a duplicate as spare."
-  }
+const groups = [
+  {title:"Release and access",body:"Official preview date, client links, access questions and progress-persistence status.",href:"/preview",items:["announcement","preview-date","official-client","preview-access","progress"]},
+  {title:"Features and side activities",body:"Implementation states for original-game features without assuming PokeMMO parity.",href:"/features",items:["pwt","pokestar","join-avenue","tower-treehollow","roaming"]},
+  {title:"Teams and progression",body:"Role criteria, ranking limits and the data needed before exact locations, caps or teams can publish.",href:"/tier-list",items:[]}
 ];
-
-const playerRoutes = [
-  "Missing an A–Z slot? Mark your owned letters in the tracker before opening or selling anything.",
-  "Trying the Word of the Day? Enter the word shown in your server and count repeated letters carefully.",
-  "Choosing an upgrade? Compare the role of Money, Luck, and Pack Speed, then confirm live costs in Roblox."
-];
-
-const wikiFaqs = [
-  {
-    q: `What is the ${siteConfig.gameName} wiki for?`,
-    a: "It explains the verified A–Z board, packs, currencies, upgrades, daily word, Symbols, and reported mutations without filling data gaps with guesses."
-  },
-  {
-    q: "Are letter pack odds listed?",
-    a: "No. The pack range is official, but a complete current pool and probability table has not been verified."
-  },
-  {
-    q: "What are Neon and Rainbow letters?",
-    a: "They are mutation appearances reported by current community research. Their rates, effects, eligibility, and Luck interactions remain unverified."
-  }
-];
-
-export const metadata: Metadata = {
-  title: `${siteConfig.gameName} Wiki: Letters, Packs & Systems`,
-  description: `${siteConfig.gameName} wiki for A-Z letters, packs, Money, Diamonds, upgrades, Symbols, the daily word, and mutation status.`,
-  alternates: { canonical: `${siteConfig.domain}/wiki` }
-};
-
-export default function WikiPage() {
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-10">
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Wiki", href: "/wiki" }]} />
-      <Breadcrumbs items={[{ label: "Wiki", href: "/wiki" }]} />
-      <PageIntro
-        eyebrow="Wiki hub"
-        title={`${siteConfig.gameName} Wiki`}
-        description="A source-labelled guide to letters, packs, currencies, upgrades, Symbols, the daily word, mutations, and the facts that are still unknown."
-      />
-      <AdsterraArticleTop />
-
-      <section className="mt-10 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-        <article className="content-card">
-          <SectionHeader
-            eyebrow="Quick answer"
-            title="Collect all 26 letters, then protect the copies you still need"
-            copy="Open packs, mount one of every A–Z letter, earn Money, improve your pack loop, and use true spare copies for Diamond-funded Symbol progression."
-          />
-          <div className="mt-6 grid gap-3 text-sm leading-6 text-white/68">
-            <p>
-              The verified loop is collection-first: letter packs supply the alphabet, mounted letters generate Money, and upgrades improve Money, Luck, or Pack Speed.
-            </p>
-            <p>
-              The Word of the Day asks for a word shown in your own game. Use the checker for repeated-letter shortages; this site never claims to know the live answer.
-            </p>
-          </div>
-        </article>
-
-        <aside className="content-card">
-          <SectionHeader eyebrow="Current facts" title="What is verified—and what is not" />
-          <ul className="mt-4 grid gap-3 text-sm leading-6 text-white/68">
-            <li>Official: 26 letters, Common-to-MYTHIC packs, mounted-letter income, three upgrades, spare-letter sales, Symbols, and Word of the Day.</li>
-            <li>Community-observed: Neon and Rainbow mutation appearances.</li>
-            <li>Not verified: individual letter stats, pack odds, prices, mutation rates/effects, and numeric trading values.</li>
-          </ul>
-        </aside>
-      </section>
-
-      <section className="mt-12">
-        <SectionHeader
-          eyebrow="Core systems"
-          title="Start with the topic family that matches the job"
-          copy="A useful wiki hub should move players toward a decision, not leave them in a directory."
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {coreSystems.map((item) => (
-            <article key={item.title} className="content-card">
-              <h2 className="text-xl font-bold text-white">{item.title}</h2>
-              <p className="mt-3 text-sm leading-6 text-white/66">{item.body}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-12 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
-        <article className="content-card">
-          <SectionHeader eyebrow="Player routes" title="Common next moves" />
-          <ul className="mt-4 grid gap-3 text-sm leading-6 text-white/68">
-            {playerRoutes.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
-        <article className="content-card">
-          <SectionHeader eyebrow="FAQ" title="Wiki questions" />
-          <div className="mt-4 grid gap-4">
-            {wikiFaqs.map((item) => (
-              <div key={item.q}>
-                <h3 className="font-semibold text-white">{item.q}</h3>
-                <p className="mt-1 text-sm leading-6 text-white/65">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </article>
-      </section>
-
-      <section className="mt-12">
-        <SectionHeader
-          eyebrow="Wiki topic pages"
-          title="Open the topic that matches your task"
-          copy="Each topic page should answer a concrete lookup and then send players to the next guide, tool, tier note, code page, or update check."
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {wikiTopicPages.map((card) => (
-            <Link key={card.title} href={card.href} className="content-card">
-              <span className="mini-label">{card.eyebrow}</span>
-              <h2 className="mt-3 text-xl font-bold text-white">{card.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-white/65">{card.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="status-pill">{card.primaryKeyword}</span>
-                <span className="status-pill">{card.checkedStatus}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="mt-12">
-        <SectionHeader
-          eyebrow="Next actions"
-          title="Use the fastest page for the decision"
-          copy="The cards below connect broad wiki lookups to the player task pages that usually solve the problem faster."
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {wikiCards.map((card) => (
-            <Link key={card.title} href={card.href} className="content-card">
-              <span className="mini-label">{card.eyebrow}</span>
-              <h2 className="mt-3 text-xl font-bold text-white">{card.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-white/65">{card.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-      <AdsterraArticleMid />
-      <AdsterraArticleBottom />
-    </main>
-  );
-}
+export const metadata: Metadata={title:"PokeMMO B2/W2 Wiki & Evidence Index",description:"Browse a source-labelled PokeMMO B2/W2 feature and entity index that distinguishes official MMO evidence from original-game references.",alternates:{canonical:`${siteConfig.domain}/wiki`}};
+export default function WikiPage(){return <main className="mx-auto max-w-7xl px-4 py-10"><BreadcrumbJsonLd items={[{name:"Home",href:"/"},{name:"Evidence Index",href:"/wiki"}]}/><Breadcrumbs items={[{label:"Evidence Index",href:"/wiki"}]}/><PageIntro eyebrow="Unofficial evidence index" title="PokeMMO B2/W2 wiki and status index" description="Find the best current page for each B2/W2 question. Cards tell you what has evidence now and which exact-data pages are still waiting for the preview."/><AdsterraArticleTop/>
+    <section className="mt-10 grid gap-4 lg:grid-cols-3">{groups.map((group)=><article key={group.title} className="content-card"><h2 className="text-xl font-bold text-white">{group.title}</h2><p className="mt-3 text-sm leading-6 text-white/65">{group.body}</p>{group.items.length?<p className="mt-4 text-xs text-white/45">{group.items.length} tracked records</p>:<p className="mt-4 text-xs text-amber-200">Exact gameplay data pending</p>}<Link href={group.href} className="mt-5 inline-flex text-sm font-bold text-cyan-300 hover:underline">Open this topic →</Link></article>)}</section>
+    <AdsterraArticleMid/><section className="mt-10"><SectionHeader eyebrow="Tracked now" title="Evidence-aware topic cards" copy="These cards point to the page that owns the full answer and source trail."/><div className="mt-6 grid gap-4 md:grid-cols-2">{featureRecords.slice(0,6).map((item)=><article key={item.id} className="content-card"><div className="flex items-center justify-between gap-3"><h2 className="font-bold text-white">{item.title}</h2><span className="status-pill">{item.state.replace("-"," ")}</span></div><p className="mt-3 text-sm leading-6 text-white/65">{item.summary}</p><Link className="mt-4 inline-flex text-sm text-cyan-300 hover:underline" href={item.id === "pwt" || item.id === "pokestar" || item.id === "join-avenue" || item.id === "tower-treehollow" ? "/features/side-content" : "/features"}>See full status →</Link></article>)}</div></section>
+    <section className="mt-10 content-card"><SectionHeader eyebrow="Waiting for preview evidence" title="Pages we will not fake"/><div className="mt-5 grid gap-4 md:grid-cols-3"><div><h3 className="font-bold text-white">Pokémon locations</h3><p className="mt-2 text-sm text-white/60">Needs direct encounter capture and a second source.</p></div><div><h3 className="font-bold text-white">Level caps</h3><p className="mt-2 text-sm text-white/60">Needs observed PokeMMO progression gates.</p></div><div><h3 className="font-bold text-white">Story route</h3><p className="mt-2 text-sm text-white/60">Needs preview checkpoints; cartridge walkthroughs are not enough.</p></div></div></section>
+    <nav className="mt-8 flex flex-wrap gap-3"><Link className="button-secondary" href="/features">Feature tracker</Link><Link className="button-secondary" href="/tier-list">Team-role evidence</Link><Link className="button-secondary" href="/guides">Guides</Link><Link className="button-secondary" href="/sources">Sources</Link></nav><AdsterraArticleBottom/></main>}

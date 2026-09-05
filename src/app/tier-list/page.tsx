@@ -1,140 +1,36 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { faqs, siteConfig, tierPreview } from "@/data/site";
+import { siteConfig } from "@/data/site";
 import { AdsterraArticleBottom, AdsterraArticleMid, AdsterraArticleTop } from "@/components/ads";
-import { BreadcrumbJsonLd, FaqJsonLd, ItemListJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
 
-export const metadata: Metadata = {
-  title: `${siteConfig.gameName} Tier List`,
-  description: `Best ${siteConfig.gameName} picks ranked for beginners, farming, and late-game progression.`,
-  alternates: { canonical: `${siteConfig.domain}/tier-list` },
-  openGraph: {
-    title: `${siteConfig.gameName} Tier List`,
-    description: `Best ${siteConfig.gameName} picks ranked for beginners, farming, and late-game progression.`,
-    url: `${siteConfig.domain}/tier-list`,
-    images: ["/tier-list/opengraph-image"]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.gameName} Tier List`,
-    description: `Best ${siteConfig.gameName} picks ranked for beginners, farming, and late-game progression.`,
-    images: ["/tier-list/opengraph-image"]
-  }
-};
+const tierFaq = [
+  { q: "Is there a trustworthy PokeMMO B2/W2 tier list yet?", a: "Not yet. The preview has not happened, so PokeMMO-specific encounter availability, level caps, boss matchups and balance evidence are missing." },
+  { q: "Why not use a Pokémon Black 2 and White 2 cartridge tier list?", a: "Cartridge rankings can describe the original games, but PokeMMO may change availability, moves, abilities, progression costs, AI and balance." },
+  { q: "What will the future rankings measure?", a: "The first ranking pass will compare availability, progression cost, matchup coverage, consistency, role compression, replacement risk and PokeMMO-specific balance." },
+  { q: "When will ranked tiers be added?", a: "After the September 19 preview produces direct observations that can be checked against official notes or a second reliable source." }
+];
+
+const roleFramework = [
+  { title: "Explore", bestFor: "first clears and route flexibility", checks: ["early availability", "safe matchups", "low setup cost", "few forced replacements"] },
+  { title: "Progress", bestFor: "reliable story and Gym momentum", checks: ["level-cap fit", "consistent damage", "coverage breadth", "healing or resource pressure"] },
+  { title: "Verify", bestFor: "preview testing before recommendations", checks: ["actual encounter data", "PokeMMO move and ability rules", "boss rosters", "repeatable results"] }
+];
+
+export const metadata: Metadata = { title: "PokeMMO B2/W2 Tier List & Team Roles", description: "See the evidence limits, team-role criteria and post-preview update plan for PokeMMO B2/W2 rankings without cartridge-only tiers presented as MMO facts.", alternates: { canonical: `${siteConfig.domain}/tier-list` }, openGraph: { title: "PokeMMO B2/W2 Tier Evidence & Team Roles", description: "A role-first framework that keeps exact rankings on hold until preview evidence exists.", url: `${siteConfig.domain}/tier-list`, images: ["/tier-list/opengraph-image"] }, twitter: { card: "summary_large_image", title: "PokeMMO B2/W2 Tier Evidence & Team Roles", description: "See what must be verified before trustworthy PokeMMO-specific ranks can publish.", images: ["/tier-list/opengraph-image"] } };
 
 export default function TierListPage() {
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-10">
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Tier List", href: "/tier-list" }]} />
-      <ItemListJsonLd />
-      <FaqJsonLd items={faqs.tierList} />
-      <Breadcrumbs items={[{ label: "Tier List", href: "/tier-list" }]} />
-
-      <PageIntro
-        eyebrow="Tier list"
-        title={`${siteConfig.gameName} Tier List`}
-        description="Use this tier list to compare the best current picks, what each pick is good for, and when to use it before you spend rare resources."
-      />
-      <AdsterraArticleTop />
-
-      <section className="mt-8 grid gap-4 lg:grid-cols-3">
-        <article className="content-card">
-          <span className="mini-label">Checked date</span>
-          <h2 className="mt-3 text-xl font-bold text-white">{siteConfig.lastUpdated}</h2>
-          <p className="mt-2 text-sm leading-6 text-white/66">Rankings should be refreshed after codes, updates, balance changes, or repeated community reports.</p>
-        </article>
-        <article className="content-card">
-          <span className="mini-label">Ranking criteria</span>
-          <h2 className="mt-3 text-xl font-bold text-white">Power, cost, utility, and scaling</h2>
-          <p className="mt-2 text-sm leading-6 text-white/66">Compare picks by clear speed, survival, unlock cost, support value, replacement risk, and late-game scaling.</p>
-        </article>
-        <article className="content-card">
-          <span className="mini-label">Confidence and source notes</span>
-          <h2 className="mt-3 text-xl font-bold text-white">Official, creator, wiki, and community context</h2>
-          <p className="mt-2 text-sm leading-6 text-white/66">Treat official Roblox and creator-owned sources as strongest. Videos and community reports help with trends and use cases.</p>
-        </article>
-      </section>
-
-      <section className="mt-10">
-        <SectionHeader
-          eyebrow="Rankings"
-          title="Best current picks"
-          copy="Compare strong beginner, farming, team-combo, and late-game options with clear notes about when each pick is useful."
-        />
-        <div className="mt-6 grid gap-4">
-          {tierPreview.map((item) => (
-            <article key={item.name} className="content-card">
-              <div className="flex flex-wrap items-center gap-4">
-                <span className="tier-badge">{item.tier}</span>
-                <div>
-                  <h2 className="text-2xl font-extrabold text-white">{item.name}</h2>
-                  <p className="mt-1 text-sm text-white/50">{item.role}</p>
-                </div>
-                {item.confidence ? <span className="status-pill">{item.confidence}</span> : null}
-              </div>
-              {item.bestFor?.length ? (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {item.bestFor.map((label) => (
-                    <span key={label} className="mini-label">{label}</span>
-                  ))}
-                </div>
-              ) : null}
-              <p className="mt-4 max-w-4xl text-white/68">{item.reason}</p>
-              {item.teamNote ? <p className="mt-3 text-sm text-white/60">Team combo: {item.teamNote}</p> : null}
-              {item.sourceNote ? <p className="mt-2 text-xs uppercase tracking-wide text-white/45">Ranking note: {item.sourceNote}</p> : null}
-            </article>
-          ))}
-        </div>
-      </section>
-      <AdsterraArticleMid />
-
-      <section className="mt-10 grid gap-4 lg:grid-cols-3">
-        <article className="content-card">
-          <h3 className="text-lg font-bold text-white">Beginner ranking</h3>
-          <p className="mt-2 text-sm leading-6 text-white/66">Rank easy, safe, low-investment options for first-session players.</p>
-        </article>
-        <article className="content-card">
-          <h3 className="text-lg font-bold text-white">Farming ranking</h3>
-          <p className="mt-2 text-sm leading-6 text-white/66">Rank options by repeatable grind speed, income, survivability, or mission value.</p>
-        </article>
-        <article className="content-card">
-          <h3 className="text-lg font-bold text-white">Endgame ranking</h3>
-          <p className="mt-2 text-sm leading-6 text-white/66">Rank the best late-game builds after unlock cost and skill ceiling are clear.</p>
-        </article>
-      </section>
-
-      <section className="mt-10">
-        <SectionHeader
-          eyebrow="Team combo notes"
-          title="Best picks need the right partners"
-          copy="For character, unit, or squad games, rank picks with synergy in mind instead of treating every unit as a solo carry."
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <Link href="/guides" className="content-card">
-            <span className="mini-label">Build guide</span>
-            <h3 className="mt-3 text-lg font-bold text-white">Check team roles</h3>
-            <p className="mt-2 text-sm text-white/66">Use guides for carry, support, control, farming, and bossing roles once the important units or builds are known.</p>
-          </Link>
-          <Link href="/wiki" className="content-card">
-            <span className="mini-label">Wiki</span>
-            <h3 className="mt-3 text-lg font-bold text-white">Read entity details</h3>
-            <p className="mt-2 text-sm text-white/66">Use wiki pages for unlock paths, abilities, traits, and practical notes on each ranked pick.</p>
-          </Link>
-          <Link href="/sources" className="content-card">
-            <span className="mini-label">References</span>
-            <h3 className="mt-3 text-lg font-bold text-white">Compare context</h3>
-            <p className="mt-2 text-sm text-white/66">Use creator videos, wiki pages, and community reports as context when rankings change.</p>
-          </Link>
-        </div>
-      </section>
-      <AdsterraArticleBottom />
-
-      <div className="mt-10 flex flex-wrap gap-3">
-        <Link href="/codes" className="button-secondary">Get codes</Link>
-        <Link href="/calculator" className="button-secondary">Use the calculator</Link>
-        <Link href="/trello" className="button-secondary">Check official links</Link>
-      </div>
-    </main>
-  );
+  return <main className="mx-auto max-w-7xl px-4 py-10">
+    <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Tier List", href: "/tier-list" }]} /><FaqJsonLd items={tierFaq} /><Breadcrumbs items={[{ label: "Tier List", href: "/tier-list" }]} />
+    <PageIntro eyebrow="Checked September 5, 2026" title="PokeMMO B2/W2 tier-list evidence and team roles" description="The honest answer before the preview: exact S/A/B/C rankings are not source-safe yet. Use this role framework to understand what we will test and why cartridge-only lists are not MMO rankings." /><AdsterraArticleTop />
+    <section className="mt-8 grid gap-4 lg:grid-cols-3"><article className="content-card"><span className="mini-label">Current verdict</span><h2 className="mt-3 text-xl font-bold text-white">Exact tiers held</h2><p className="mt-2 text-sm leading-6 text-white/66">No PokeMMO-specific B2/W2 roster, caps or boss data is available before the preview.</p><p className="mt-4 text-xs font-bold uppercase tracking-wide text-amber-200">Confidence: high that ranks are premature</p></article><article className="content-card"><span className="mini-label">Ranking criteria</span><h2 className="mt-3 text-xl font-bold text-white">Availability before hype</h2><p className="mt-2 text-sm leading-6 text-white/66">We will score availability, cost, consistency, coverage, role value and replacement risk—not rarity or nostalgia.</p><p className="mt-4 text-xs font-bold uppercase tracking-wide text-cyan-200">Confidence: criteria established</p></article><article className="content-card"><span className="mini-label">Source priority</span><h2 className="mt-3 text-xl font-bold text-white">Official PokeMMO channels first</h2><p className="mt-2 text-sm leading-6 text-white/66">Official notes and direct preview observations outrank cartridge references and community speculation.</p><p className="mt-4 text-xs font-bold uppercase tracking-wide text-sky-200">Confidence: source order established</p></article></section>
+    <section className="mt-10"><SectionHeader eyebrow="Role-first framework" title="Plan the job before naming the pick" copy="These are evaluation lanes, not disguised rankings. Each lane names the evidence a future recommendation must satisfy." /><div className="mt-6 grid gap-4 lg:grid-cols-3">{roleFramework.map((role) => <article key={role.title} className="content-card"><div className="flex items-center justify-between gap-3"><h2 className="text-2xl font-extrabold text-white">{role.title}</h2><span className="status-pill">Framework</span></div><p className="mt-3 text-sm text-cyan-200">Best for: {role.bestFor}</p><ul className="mt-5 grid gap-2 text-sm text-white/65">{role.checks.map((check) => <li key={check}>• {check}</li>)}</ul><p className="mt-5 text-xs uppercase tracking-wide text-white/40">Confidence: criteria ready; entity evidence pending</p></article>)}</div></section>
+    <AdsterraArticleMid />
+    <section className="mt-10 content-card"><SectionHeader eyebrow="Team-combo plan" title="A good team is more than six high ranks" copy="Post-preview guidance will check complementary roles, shared weaknesses, cap timing and whether suggested team members are actually obtainable in PokeMMO B2/W2." /><div className="mt-6 grid gap-4 md:grid-cols-3"><div><strong className="text-white">Coverage</strong><p className="mt-2 text-sm text-white/60">Enough answers for observed story and boss matchups.</p></div><div><strong className="text-white">Tempo</strong><p className="mt-2 text-sm text-white/60">Useful members arrive before the segment where their role matters.</p></div><div><strong className="text-white">Cost</strong><p className="mt-2 text-sm text-white/60">Training and replacement costs do not erase the theoretical advantage.</p></div></div></section>
+    <section className="mt-10 grid gap-4 md:grid-cols-2"><article className="content-card"><SectionHeader eyebrow="Evidence context" title="What can inform—but not decide—the list" copy="Original-game tier discussions and older PokeMMO Unova videos prove demand and useful vocabulary. They cannot confirm the new MMO implementation." /></article><article className="content-card"><SectionHeader eyebrow="Change log" title="No rank changes yet" copy="The first dated adjustment will be recorded after preview observations support an actual entity comparison." /></article></section>
+    <section className="mt-10 content-card"><SectionHeader eyebrow="Questions" title="Tier-list FAQ" /><div className="mt-5 grid gap-3">{tierFaq.map((item) => <details key={item.q} className="rounded-xl border border-white/10 p-4"><summary className="cursor-pointer font-bold text-white">{item.q}</summary><p className="mt-3 text-sm leading-6 text-white/65">{item.a}</p></details>)}</div></section>
+    <AdsterraArticleBottom />
+    <nav className="mt-8 flex flex-wrap gap-3" aria-label="Tier list next steps"><Link href="/features" className="button-secondary">Check feature evidence</Link><Link href="/guides" className="button-secondary">Browse preparation guides</Link><Link href="/calculator" className="button-secondary">Use the preview tracker</Link><Link href="/trello" className="button-secondary">Check official links</Link><Link href="/sources" className="button-secondary">Review sources</Link><Link href="/codes" className="button-secondary">Codes status</Link></nav>
+  </main>;
 }

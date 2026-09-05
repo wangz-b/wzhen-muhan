@@ -25,7 +25,7 @@ export default function Image() {
         }}
       >
         <div style={{ fontSize: 34, color: "#facc15", fontWeight: 800 }}>
-          Codes, tier list, tools and guides
+          Preview countdown · evidence tracker · safe preparation
         </div>
         <div style={{ marginTop: 24, fontSize: 78, lineHeight: 1, fontWeight: 900 }}>
           {siteConfig.gameName}

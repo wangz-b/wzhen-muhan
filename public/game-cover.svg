@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="CollectLetters cover art">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="PokeMMO-BW2 cover art">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#11180a"/>
@@ -33,9 +33,9 @@
     <path d="M0 -128l43 92 101 11-75 69 21 98-90-50-90 50 21-98-75-69 101-11z" fill="#11160a"/>
   </g>
   <g transform="translate(124 92)">
-    <text x="0" y="80" fill="#f7d24c" font-size="58" font-family="Arial, sans-serif" font-weight="700" letter-spacing="12">COLLECTLETTERS</text>
+    <text x="0" y="80" fill="#f7d24c" font-size="58" font-family="Arial, sans-serif" font-weight="700" letter-spacing="12">POKEMMO-BW2</text>
     <text x="0" y="170" fill="#ffffff" font-size="108" font-family="Arial, sans-serif" font-weight="700">Codes, Tier List,</text>
     <text x="0" y="278" fill="#ffffff" font-size="108" font-family="Arial, sans-serif" font-weight="700">Tools and Wiki</text>
-    <text x="0" y="368" fill="#c7d2c1" font-size="34" font-family="Arial, sans-serif">Codes, guides, calculators, and progression tools for Roblox players.</text>
+    <text x="0" y="368" fill="#c7d2c1" font-size="34" font-family="Arial, sans-serif">Codes, guides, calculators, and progression tools for PokeMMO players.</text>
   </g>
 </svg>

@@ -15,23 +15,23 @@ export default function AboutPage() {
       <PageIntro
         eyebrow="About us"
         title={`About ${siteConfig.name}`}
-        description={`${siteConfig.name} is an independent Roblox fan resource focused on codes, tier notes, tools, official links, and practical player guidance for ${siteConfig.gameName}.`}
+        description={`${siteConfig.name} is an independent fan resource focused on the PokeMMO B2/W2 preview, evidence-labelled feature tracking, safe setup, and practical preparation.`}
       />
 
       <section className="mt-10 grid gap-4">
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">Author and editor profile</h2>
           <p className="mt-2 leading-7 text-white/68">
-            The site is maintained by an independent Roblox guide editor who reviews public game pages,
-            creator-owned channels, community reports, and live player-facing changes before updating
-            codes, rankings, guides, or link pages.
+            The site is maintained by an independent PokeMMO guide editor who reviews public game pages,
+            creator-owned channels, community reports, and direct player-facing changes before updating
+            dates, feature status, guides, or link pages.
           </p>
         </article>
 
         <article className="content-card">
           <h2 className="text-xl font-bold text-white">How pages are reviewed</h2>
           <p className="mt-2 leading-7 text-white/68">
-            Pages should separate official Roblox or creator information from community reports. When public
+            Pages should separate official PokeMMO or creator information from community reports. When public
             reports disagree, the page uses the clearest useful answer and keeps older or conflicting notes only
             when they help players avoid mistakes.
           </p>

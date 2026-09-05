@@ -1,85 +1,29 @@
 import type { Metadata } from "next";
-import { activeCodes, faqs, siteConfig } from "@/data/site";
+import Link from "next/link";
+import { siteConfig } from "@/data/site";
 import { AdsterraArticleBottom, AdsterraArticleMid, AdsterraArticleTop } from "@/components/ads";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
 
-export const metadata: Metadata = {
-  title: `${siteConfig.gameName} Codes`,
-  description: `Collected ${siteConfig.gameName} code status, listed rewards when available, redemption steps, and expired-code notes.`,
-  alternates: { canonical: `${siteConfig.domain}/codes` },
-  openGraph: {
-    title: `${siteConfig.gameName} Codes`,
-    description: `Collected ${siteConfig.gameName} code status, listed rewards when available, redemption steps, and expired-code notes.`,
-    url: `${siteConfig.domain}/codes`,
-    images: ["/codes/opengraph-image"]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.gameName} Codes`,
-    description: `Collected ${siteConfig.gameName} code status, listed rewards when available, redemption steps, and expired-code notes.`,
-    images: ["/codes/opengraph-image"]
-  }
-};
+const monthYear = new Intl.DateTimeFormat("en-US", { month: "long", year: "numeric", timeZone: "UTC" }).format(new Date());
+const codesFaq = [
+  { q: "Does PokeMMO B2/W2 have promo codes?", a: "No B2/W2-specific promo-code redemption system was found in the official PokeMMO pages checked on September 5, 2026." },
+  { q: "Why is a PokeMMO B2/W2 code not working?", a: "A string shared as a B2/W2 code may be unrelated, invented, expired elsewhere, or based on a different game. Do not enter account details on third-party code sites." },
+  { q: "Where would an official reward announcement appear?", a: "Check the official PokeMMO homepage, forum and support-linked community channels. This page will not list a code unless a real redemption system and public source exist." },
+  { q: "Will this page add active and expired code lists later?", a: "Only if PokeMMO introduces a relevant code system. Any future entries must show their public source, reward, status and checked date." }
+];
+
+export const metadata: Metadata = { title: `PokeMMO B2/W2 Codes Status (${monthYear})`, description: "Check whether a PokeMMO B2/W2 promo-code system has been found, where official announcements appear and why alleged codes may not work.", alternates: { canonical: `${siteConfig.domain}/codes` }, openGraph: { title: `PokeMMO B2/W2 Codes Status (${monthYear})`, description: "An honest, source-checked status page for PokeMMO B2/W2 code searches.", url: `${siteConfig.domain}/codes`, images: ["/codes/opengraph-image"] }, twitter: { card: "summary_large_image", title: `PokeMMO B2/W2 Codes Status (${monthYear})`, description: "No fabricated list: see the current source-checked promo-code status.", images: ["/codes/opengraph-image"] } };
 
 export default function CodesPage() {
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-10">
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Codes", href: "/codes" }]} />
-      <FaqJsonLd items={faqs.codes} />
-      <Breadcrumbs items={[{ label: "Codes", href: "/codes" }]} />
-
-      <PageIntro
-        eyebrow="Freshness-sensitive"
-        title={`${siteConfig.gameName} Codes`}
-        description="Use this page for collected code status, expired-code notes, and redemption steps. Try listed rewards first and keep older reports visible when players may still search for them."
-      />
-      <AdsterraArticleTop />
-
-      <section className="mt-10">
-        <SectionHeader
-          eyebrow="Active list"
-          title="Collected active-code status"
-          copy="Do not publish guessed codes. List a code only when Roblox, a creator-owned channel, or an established public tracker lists it."
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {activeCodes.map((code) => (
-            <article key={code.code} className="content-card">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <h2 className="font-mono text-2xl font-extrabold text-[color:var(--accent)]">{code.code}</h2>
-                <span className="status-pill">{code.status}</span>
-              </div>
-              <p className="mt-3 text-white/70">{code.reward}</p>
-              <p className="mt-2 text-sm text-white/45">Added or checked: {code.addedDate}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <AdsterraArticleMid />
-
-      <section className="mt-10 grid gap-4 lg:grid-cols-2">
-        <article className="content-card">
-          <SectionHeader
-            eyebrow="Redeem flow"
-            title="How to redeem codes"
-            copy="Roblox code flows often move between shop, settings, menu, and event panels, so check the visible in-game menus first."
-          />
-          <ol className="mt-5 grid gap-3 text-white/70">
-            <li>1. Open the game from the official Roblox page.</li>
-            <li>2. Finish any tutorial gate that hides menus.</li>
-            <li>3. Find the Codes, Rewards, Shop, or Settings panel.</li>
-            <li>4. Paste the code exactly, then claim the reward.</li>
-          </ol>
-        </article>
-        <article className="content-card">
-          <SectionHeader
-            eyebrow="Freshness"
-            title="Why codes stop working"
-            copy="Codes can expire after updates, events, milestones, or creator announcements. Keep expired codes visible when players still search for them."
-          />
-        </article>
-      </section>
-      <AdsterraArticleBottom />
-    </main>
-  );
+  return <main className="mx-auto max-w-7xl px-4 py-10">
+    <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Codes Status", href: "/codes" }]} /><FaqJsonLd items={codesFaq} /><Breadcrumbs items={[{ label: "Codes Status", href: "/codes" }]} />
+    <PageIntro eyebrow="Checked September 5, 2026" title={`PokeMMO B2/W2 codes status — ${monthYear}`} description="No B2/W2-specific promo-code redemption system was found in the official sources we checked. The clear answer is that there are no code strings to copy today." /><AdsterraArticleTop />
+    <section className="mt-10 grid gap-5 lg:grid-cols-[1.2fr_0.8fr]"><article className="content-card border-cyan-300/25"><p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Current answer</p><h2 className="mt-3 text-2xl font-extrabold text-white">No verified B2/W2 code system</h2><p className="mt-4 leading-7 text-white/70">We found an official expansion announcement and preview date, but no official B2/W2 page describing promo codes, a redeem field or code rewards. There are therefore no code strings to copy and no redemption steps to follow.</p><p className="mt-4 text-sm text-white/50">Official check: PokeMMO homepage · Checked 2026-09-05</p></article><aside className="content-card"><SectionHeader eyebrow="Safe next step" title="Watch real announcement channels" copy="Use the official homepage, forum and support paths. Never provide login details to a page promising unreleased rewards." /><a className="button-primary mt-5 inline-flex" href="https://pokemmo.com/en/" target="_blank" rel="noreferrer">Open official PokeMMO site</a></aside></section>
+    <AdsterraArticleMid />
+    <section className="mt-10 grid gap-5 md:grid-cols-2"><article className="content-card"><SectionHeader eyebrow="Active codes" title="No active codes collected" copy="No code is shown because no relevant redemption system or publicly supported active entry was found." /></article><article className="content-card"><SectionHeader eyebrow="Expired codes" title="No B2/W2 code history collected" copy="We do not import expired code strings from unrelated games or generic PokeMMO rumors." /></article></section>
+    <section className="mt-10 content-card"><SectionHeader eyebrow="If someone shares a code" title="Three checks before trusting it" /><ol className="mt-5 grid gap-4 text-white/70 md:grid-cols-3"><li><strong className="block text-white">1. Check the game</strong><span className="mt-1 block text-sm">Confirm the post is actually about PokeMMO B2/W2, not another game or unrelated promotion.</span></li><li><strong className="block text-white">2. Check the source</strong><span className="mt-1 block text-sm">Look for a matching official PokeMMO announcement or channel linked from official support.</span></li><li><strong className="block text-white">3. Protect your account</strong><span className="mt-1 block text-sm">A reward page should never ask for your password, ROM file or unrelated software download.</span></li></ol></section>
+    <section className="mt-10 content-card"><SectionHeader eyebrow="Questions" title="Codes status FAQ" /><div className="mt-5 grid gap-3">{codesFaq.map((item) => <details key={item.q} className="rounded-xl border border-white/10 p-4"><summary className="cursor-pointer font-bold text-white">{item.q}</summary><p className="mt-3 text-sm leading-6 text-white/65">{item.a}</p></details>)}</div></section>
+    <nav className="mt-8 flex flex-wrap gap-3" aria-label="Codes next steps"><Link className="button-secondary" href="/updates">Check B2/W2 updates</Link><Link className="button-secondary" href="/trello">Find official links</Link><Link className="button-secondary" href="/tier-list">See tier-list evidence</Link></nav><AdsterraArticleBottom />
+  </main>;
 }

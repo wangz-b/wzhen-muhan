@@ -1,126 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { gameConfig } from "@/data/game.config";
 import { siteConfig } from "@/data/site";
 import { AdsterraArticleBottom, AdsterraArticleMid, AdsterraArticleTop } from "@/components/ads";
-import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
-
-export const metadata: Metadata = {
-  title: `${siteConfig.gameName} Trello, Discord & Wiki Status`,
-  description: `Official and community links for ${siteConfig.gameName} Trello, Discord, wiki, Roblox updates, codes, and community references.`,
-  alternates: { canonical: `${siteConfig.domain}/trello` },
-  openGraph: {
-    title: `${siteConfig.gameName} Trello, Discord & Wiki Status`,
-    description: `Verified Roblox and creator links, likely Discord, and honest Trello/wiki status for ${siteConfig.gameName}.`,
-    url: `${siteConfig.domain}/trello`,
-    images: ["/trello/opengraph-image"]
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${siteConfig.gameName} Trello, Discord & Wiki Status`,
-    description: `Verified Roblox and creator links, likely Discord, and honest Trello/wiki status for ${siteConfig.gameName}.`,
-    images: ["/trello/opengraph-image"]
-  }
-};
-
-const statusRows = [
-  {
-    label: "Official Roblox page",
-    href: gameConfig.dataSources.officialGameUrl,
-    status: "Official link",
-    note: "Use this for the game title, creator, Roblox availability, badges, and public update text."
-  },
-  {
-    label: "Discord",
-    href: gameConfig.dataSources.discord ?? "#",
-    status: gameConfig.dataSources.discord && gameConfig.dataSources.discord !== "#" ? "Likely official · recheck invite" : "Not listed",
-    note: "The invite resolves to the game name in current guide sources, but was not visible in the crawlable official Roblox description. Revalidate before joining."
-  },
-  {
-    label: "Trello",
-    href: gameConfig.dataSources.trello ?? "#",
-    status: gameConfig.dataSources.trello && gameConfig.dataSources.trello !== "#" ? "Available" : "No board listed",
-    note: "No official board was verified on September 5, 2026. Do not trust a lookalike board merely because it uses the game name."
-  },
-  {
-    label: "Wiki",
-    href: "/wiki",
-    status: "Unofficial site hub",
-    note: "No official wiki was verified. Our source-labelled hub covers letters, packs, currencies, upgrades, Symbols, and known gaps."
-  }
-];
-
-export default function TrelloStatusPage() {
-  return (
-    <main className="mx-auto max-w-7xl px-4 py-10">
-      <BreadcrumbJsonLd items={[{ name: "Home", href: "/" }, { name: "Trello, Discord & Wiki", href: "/trello" }]} />
-      <Breadcrumbs items={[{ label: "Trello, Discord & Wiki", href: "/trello" }]} />
-      <PageIntro
-        eyebrow="Community status"
-        title={`${siteConfig.gameName} Trello, Discord & Wiki Status`}
-        description={`Use this page to find ${siteConfig.gameName} Roblox, Discord, Trello, wiki, codes, updates, and tier-list references.`}
-      />
-      <AdsterraArticleTop />
-
-      <section className="mt-10">
-        <SectionHeader
-          eyebrow="Official links"
-          title="Official and community links"
-          copy="This page should be updated whenever Roblox pages, creator channels, Discord, Trello, or wiki links change."
-        />
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          {statusRows.map((item) => {
-            const isInternal = item.href.startsWith("/");
-            const hasLink = item.href !== "#";
-            const content = (
-              <>
-                <span className="mini-label">{item.status}</span>
-                <h2 className="mt-3 text-xl font-bold text-white">{item.label}</h2>
-                <p className="mt-2 text-sm leading-6 text-white/65">{item.note}</p>
-              </>
-            );
-
-            if (!hasLink) {
-              return (
-                <article key={item.label} className="content-card">
-                  {content}
-                </article>
-              );
-            }
-
-            return isInternal ? (
-              <Link key={item.label} href={item.href} className="content-card">
-                {content}
-              </Link>
-            ) : (
-              <a key={item.label} href={item.href} className="content-card" target="_blank" rel="noreferrer">
-                {content}
-              </a>
-            );
-          })}
-        </div>
-      </section>
-      <AdsterraArticleMid />
-
-      <section className="mt-10 grid gap-4 md:grid-cols-3">
-        <Link href="/codes" className="content-card">
-          <span className="mini-label">Freshness</span>
-          <h2 className="mt-3 text-xl font-bold text-white">Codes and rewards</h2>
-          <p className="mt-2 text-sm leading-6 text-white/65">Check active and expired rewards against official update surfaces before publishing code claims.</p>
-        </Link>
-        <Link href="/tier-list" className="content-card">
-          <span className="mini-label">Meta</span>
-          <h2 className="mt-3 text-xl font-bold text-white">Tier-list context</h2>
-          <p className="mt-2 text-sm leading-6 text-white/65">Use Discord, YouTube, update notes, and wiki data as signals, then label ranking confidence clearly.</p>
-        </Link>
-        <Link href="/sources" className="content-card">
-          <span className="mini-label">Editorial</span>
-          <h2 className="mt-3 text-xl font-bold text-white">Reference checklist</h2>
-          <p className="mt-2 text-sm leading-6 text-white/65">Keep official, community, video, Reddit, and guide-site references easy to compare when updates change.</p>
-        </Link>
-      </section>
-      <AdsterraArticleBottom />
-    </main>
-  );
-}
+const faq=[{q:"Does PokeMMO B2/W2 have an official Trello?",a:"No official B2/W2 Trello was found in the PokeMMO pages checked on September 5, 2026."},{q:"Is there an official B2/W2 Discord?",a:"No dedicated B2/W2 server was confirmed. Use the general Discord or community link reached through official PokeMMO support."},{q:"Is there an official B2/W2 wiki?",a:"No dedicated official B2/W2 wiki was found. Community wikis should be treated as unofficial references."},{q:"Where should I check official B2/W2 announcements?",a:"Use the PokeMMO homepage and forum first, then official support for client and account help."},{q:"Is patrouski.shop run by PokeMMO or Patrouski?",a:"No. It is an independent, unofficial tracker and is not endorsed by PokeMMO, Nintendo, The Pokémon Company or Patrouski."}];
+const rows=[{title:"PokeMMO homepage",status:"Official",href:"https://pokemmo.com/en/",body:"B2/W2 announcement and September 19 preview milestone."},{title:"PokeMMO forum",status:"Official",href:"https://forums.pokemmo.com/",body:"Announcements and community discussion; official posts take precedence."},{title:"PokeMMO support",status:"Official",href:"https://support.pokemmo.com/",body:"Installation, account and support guidance, including the path to general community channels."},{title:"B2/W2 Trello",status:"Not found",body:"No official public board was verified. We do not substitute a fan board."},{title:"Dedicated B2/W2 wiki",status:"Not found",body:"No dedicated official wiki was verified. Community references remain labelled unofficial."},{title:"Dedicated B2/W2 Discord",status:"Not found",body:"Use only channels surfaced through official PokeMMO pages."}];
+export const metadata:Metadata={title:"PokeMMO B2/W2 Trello, Discord & Wiki Status",description:"Find verified PokeMMO forum, support and download links, plus an honest status check for B2/W2 Trello, Discord and wiki searches.",alternates:{canonical:`${siteConfig.domain}/trello`},openGraph:{title:"PokeMMO B2/W2 Official Links Status",description:"Verified PokeMMO destinations plus the honest status of B2/W2 Trello, Discord, and wiki searches.",url:`${siteConfig.domain}/trello`,images:["/trello/opengraph-image"]},twitter:{card:"summary_large_image",title:"PokeMMO B2/W2 Official Links Status",description:"Find official PokeMMO sources without invented Trello or wiki links.",images:["/trello/opengraph-image"]}};
+export default function TrelloPage(){return <main className="mx-auto max-w-7xl px-4 py-10"><BreadcrumbJsonLd items={[{name:"Home",href:"/"},{name:"Official Links Status",href:"/trello"}]}/><FaqJsonLd items={faq}/><Breadcrumbs items={[{label:"Official Links Status",href:"/trello"}]}/><PageIntro eyebrow="Checked September 5, 2026" title="PokeMMO B2/W2 Trello, Discord and wiki status" description="No official B2/W2 Trello or dedicated official wiki was found. Use these verified general PokeMMO paths and keep community references separate."/><AdsterraArticleTop/>
+ <section className="mt-10 grid gap-4 md:grid-cols-2">{rows.map((row)=>{const content=<><span className="mini-label">{row.status}</span><h2 className="mt-3 text-xl font-bold text-white">{row.title}</h2><p className="mt-2 text-sm leading-6 text-white/65">{row.body}</p>{row.href?<span className="mt-4 block text-xs text-cyan-300">{new URL(row.href).hostname} ↗</span>:null}</>;return row.href?<a key={row.title} className="content-card" href={row.href} target="_blank" rel="noreferrer">{content}</a>:<article key={row.title} className="content-card">{content}</article>})}</section>
+ <AdsterraArticleMid/><section className="mt-10 content-card"><SectionHeader eyebrow="Link safety" title="How to recognize the right destination"/><ul className="mt-5 grid gap-3 text-sm leading-6 text-white/65"><li>Official pages use the pokemmo.com or forums.pokemmo.com hosts shown above.</li><li>A community wiki can be useful, but it should never be labelled an official B2/W2 source.</li><li>A missing Trello result is not a reason to invent a board link.</li><li>Account and client problems belong with PokeMMO support, not this site.</li></ul></section>
+ <section className="mt-10 content-card"><SectionHeader eyebrow="Questions" title="Official links FAQ"/><div className="mt-5 grid gap-3">{faq.map((item)=><details key={item.q} className="rounded-xl border border-white/10 p-4"><summary className="cursor-pointer font-bold text-white">{item.q}</summary><p className="mt-3 text-sm text-white/65">{item.a}</p></details>)}</div></section><nav className="mt-8 flex flex-wrap gap-3"><Link className="button-secondary" href="/updates">Dated updates</Link><Link className="button-secondary" href="/download">Download safety</Link><Link className="button-secondary" href="/sources">Source ledger</Link><Link className="button-secondary" href="/codes">Codes status</Link><Link className="button-secondary" href="/tier-list">Tier evidence</Link></nav><AdsterraArticleBottom/></main>}

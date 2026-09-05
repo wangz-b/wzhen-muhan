@@ -5,21 +5,24 @@ import { fileURLToPath } from "node:url";
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const requiredRoutes = [
   "/",
+  "/preview",
+  "/features",
+  "/features/side-content",
+  "/download",
+  "/updates",
   "/codes",
   "/tier-list",
   "/trello",
   "/calculator",
-  "/squad-planner",
-  "/resource-calculator",
   "/guides",
-  "/guides/beginner",
-  "/guides/progression",
-  "/guides/farming",
+  "/guides/preview-preparation",
   "/wiki",
-  "/wiki/items-and-rewards",
-  "/wiki/maps-and-systems",
-  "/wiki/builds-and-entities",
-  "/updates",
+  "/sources",
+  "/about",
+  "/contact",
+  "/privacy",
+  "/terms",
+  "/disclosure",
 ];
 
 function pagePathFor(route) {
@@ -40,7 +43,7 @@ const missingRouteFiles = requiredRoutes.filter((route) => !existsSync(pagePathF
 
 const payload = {
   ...previous,
-  gameSlug: "collectletters",
+  gameSlug: "pokemmo-bw2",
   status: missingRouteFiles.length ? "needs-review" : "pass",
   checkedAt,
   checkedDate: checkedAt.slice(0, 10),
@@ -60,5 +63,5 @@ if (missingRouteFiles.length) {
   console.error(`Content update baseline failed; missing route files: ${missingRouteFiles.join(", ")}`);
   process.exitCode = 1;
 } else {
-  console.log(`Content update baseline passed for collectletters at ${checkedAt}`);
+  console.log(`Content update baseline passed for pokemmo-bw2 at ${checkedAt}`);
 }

@@ -6,7 +6,7 @@ import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
 
 export const metadata: Metadata = {
   title: `${siteConfig.gameName} Official and Community Links`,
-  description: `Official and community links for ${siteConfig.gameName} codes, guides, wiki pages, and tier-list updates.`,
+  description: `Official PokeMMO links, source precedence, and creator-context rules used by ${siteConfig.name}.`,
   alternates: { canonical: `${siteConfig.domain}/sources` }
 };
 
@@ -18,14 +18,14 @@ export default function SourcesPage() {
       <PageIntro
         eyebrow="References"
         title={`${siteConfig.gameName} Official and Community Links`}
-        description="Use this page to find Roblox pages, creator channels, Discord, Trello, wiki references, guides, and community context."
+        description="Use this ledger to verify dates and claims. Official PokeMMO pages lead; creator and community material is labelled as context, never as proof of implementation."
       />
 
       <section className="mt-10">
         <SectionHeader
           eyebrow="Primary references"
           title="Where players should look first"
-          copy="Start with official Roblox and creator-owned links, then use dated community references when official details are unavailable."
+          copy="Start with official PokeMMO and creator-owned links, then use dated community references when official details are unavailable."
         />
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {officialLinks.map((link) => {
@@ -48,6 +48,17 @@ export default function SourcesPage() {
             );
           })}
         </div>
+      </section>
+
+      <section className="mt-12 grid gap-4 md:grid-cols-3">
+        <article className="content-card"><span className="mini-label">Priority 1</span><h2 className="mt-3 text-xl font-bold text-white">Official PokeMMO pages</h2><p className="mt-2 text-sm leading-6 text-white/65">Use the homepage, forum, support site, and official client page for dates, access, and software instructions.</p></article>
+        <article className="content-card"><span className="mini-label">Priority 2</span><h2 className="mt-3 text-xl font-bold text-white">Direct preview evidence</h2><p className="mt-2 text-sm leading-6 text-white/65">Repeatable observations can support mechanics and feature status once the preview is accessible.</p></article>
+        <article className="content-card"><span className="mini-label">Context only</span><h2 className="mt-3 text-xl font-bold text-white">Creator and community reports</h2><p className="mt-2 text-sm leading-6 text-white/65">Useful for finding questions and tests, but not enough by themselves to mark a feature confirmed.</p></article>
+      </section>
+
+      <section className="mt-4 content-card">
+        <h2 className="text-xl font-bold text-white">What is deliberately not linked</h2>
+        <p className="mt-3 leading-7 text-white/68">No unofficial ROM downloads are linked. No dedicated official B2/W2 Trello or wiki was found during the September 5 check, so this site does not invent one or label a community board as official.</p>
       </section>
     </main>
   );

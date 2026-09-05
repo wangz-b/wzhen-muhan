@@ -1,73 +1,59 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import { featureRecords, type EvidenceState } from "@/data/features";
+import { previewMilestone } from "@/data/release-milestones";
 
-const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const STORAGE_KEY = "collectletters:tracker:v1";
-const count = (value: string) => Number.isInteger(Number(value)) ? Math.min(99, Math.max(0, Number(value))) : 0;
+type Countdown = { days: number; hours: number; minutes: number } | null;
+const stateOrder: EvidenceState[] = ["confirmed", "reported", "not-confirmed"];
+const stateLabels: Record<EvidenceState, string> = { confirmed: "Confirmed", reported: "Reported", "not-confirmed": "Not confirmed" };
 
-export function CalculatorTool() {
-  const [owned, setOwned] = useState<string[]>([]);
-  const [word, setWord] = useState("");
-  const [copies, setCopies] = useState<Record<string, number>>({});
-  const [letter, setLetter] = useState("A");
-  const [ownedCopies, setOwnedCopies] = useState("1");
-  const [board, setBoard] = useState(true);
-  const [daily, setDaily] = useState("0");
-  const [personal, setPersonal] = useState("0");
-
-  useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      // Hydration is the one intentional state sync: the persisted checklist exists only in the browser.
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      if (Array.isArray(saved)) setOwned([...new Set(saved.filter((x): x is string => typeof x === "string" && /^[A-Z]$/.test(x)))].sort());
-    } catch { localStorage.removeItem(STORAGE_KEY); }
-  }, []);
-  useEffect(() => { localStorage.setItem(STORAGE_KEY, JSON.stringify(owned)); }, [owned]);
-
-  const missing = ALPHABET.filter((x) => !owned.includes(x));
-  const normalized = (word.toUpperCase().match(/[A-Z]/g) || []).join("");
-  const needed = useMemo(() => [...normalized].reduce<Record<string, number>>((all, x) => ({ ...all, [x]: (all[x] || 0) + 1 }), {}), [normalized]);
-  const short = Object.entries(needed).map(([x, n]) => ({ x, n, have: copies[x] ?? (owned.includes(x) ? 1 : 0) })).filter((x) => x.have < x.n);
-  const reserved = (board ? 1 : 0) + count(daily) + count(personal);
-  const spare = Math.max(0, count(ownedCopies) - reserved);
-  const toggle = (x: string) => setOwned((old) => old.includes(x) ? old.filter((item) => item !== x) : [...old, x].sort());
-
-  return <div className="grid gap-8">
-    <section className="content-card" aria-labelledby="tracker-title">
-      <p className="mini-label">Official 26-letter goal · saved in your browser</p>
-      <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
-        <div><h2 id="tracker-title" className="text-2xl font-black">A–Z collection tracker</h2><p className="mt-2 text-sm leading-6 text-white/65">Tap every letter you own. No pack, rarity, value, or income rate is assumed.</p></div>
-        <div className="rounded-lg border border-cyan-300/25 bg-cyan-300/10 px-4 py-3 text-right" aria-live="polite"><strong className="block text-2xl text-cyan-200">{owned.length}/26</strong><span className="text-sm text-white/70">{Math.round(owned.length / 26 * 100)}% complete</span></div>
-      </div>
-      <div className="mt-6 grid grid-cols-5 gap-2 sm:grid-cols-7 md:grid-cols-13">{ALPHABET.map((x) => { const selected = owned.includes(x); return <button key={x} type="button" aria-pressed={selected} onClick={() => toggle(x)} className={`min-h-12 rounded-lg border font-black ${selected ? "border-cyan-200 bg-cyan-300 text-slate-950" : "border-white/15 bg-white/5 text-white"}`}>{x}<span className="sr-only"> {selected ? "owned" : "missing"}</span></button>; })}</div>
-      <div className="mt-5 flex flex-wrap gap-3"><button type="button" className="button-secondary button-small" onClick={() => setOwned([...ALPHABET])}>Select all</button><button type="button" className="button-secondary button-small" onClick={() => { if (window.confirm("Clear every saved letter?")) setOwned([]); }}>Reset tracker</button></div>
-      <p className="mt-5 text-sm leading-6 text-white/70" aria-live="polite"><strong className="text-white">Missing:</strong> {missing.length ? missing.join(", ") : "None — your A–Z board is complete."}</p>
-    </section>
-
-    <section className="content-card" aria-labelledby="word-title">
-      <p className="mini-label">User-entered word · calculated locally</p><h2 id="word-title" className="mt-2 text-2xl font-black">Daily Word letter checker</h2>
-      <p className="mt-2 text-sm leading-6 text-white/65">Copy the Word of the Day shown in your game. We do not guess today&apos;s answer or its reset time.</p>
-      <label className="mt-5 grid gap-2"><span className="text-sm font-bold">Word shown in your server</span><input value={word} onChange={(e) => setWord(e.target.value)} placeholder="Example: LETTER" className="min-h-12 rounded-lg border border-white/15 bg-[#111827] px-4 text-lg font-bold uppercase" /></label>
-      {normalized ? <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{Object.entries(needed).map(([x, n]) => { const have = copies[x] ?? (owned.includes(x) ? 1 : 0); return <label key={x} className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-white/5 p-3"><span className="font-bold">{x} · need {n}</span><input aria-label={`Copies of ${x} owned`} type="number" min="0" max="99" value={have} onChange={(e) => setCopies((old) => ({ ...old, [x]: count(e.target.value) }))} className="h-11 w-20 rounded-lg border border-white/15 bg-[#111827] px-3" /></label>; })}</div> : <p className="mt-5 rounded-lg border border-white/10 bg-white/5 p-4 text-sm text-white/65">Enter at least one A–Z letter. Spaces, punctuation, and numbers are ignored.</p>}
-      {normalized && <div className={`mt-5 rounded-lg border p-4 ${short.length ? "border-amber-300/30 bg-amber-300/10" : "border-emerald-300/30 bg-emerald-300/10"}`} aria-live="polite"><strong>{short.length ? "Not ready yet" : "Ready to spell"}</strong><p className="mt-1 text-sm text-white/70">{short.length ? `Still needed: ${short.map((x) => `${x.x} ×${x.n - x.have}`).join(", ")}.` : `Your counts cover every letter in ${normalized}.`}</p></div>}
-    </section>
-
-    <section className="content-card" aria-labelledby="duplicate-title">
-      <p className="mini-label">Conservative helper rule · no price estimate</p><h2 id="duplicate-title" className="mt-2 text-2xl font-black">Duplicate keep-or-sell helper</h2>
-      <p className="mt-2 text-sm leading-6 text-white/65">Reserve copies for your board, the daily word, and your own plans before treating anything as spare. Confirm in Roblox before selling.</p>
-      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <label className="grid gap-2"><span className="text-sm font-bold">Letter</span><select value={letter} onChange={(e) => setLetter(e.target.value)} className="min-h-12 rounded-lg border border-white/15 bg-[#111827] px-3">{ALPHABET.map((x) => <option key={x}>{x}</option>)}</select></label>
-        <CountInput label="Copies owned" value={ownedCopies} setValue={setOwnedCopies} />
-        <label className="grid gap-2"><span className="text-sm font-bold">Board reserve</span><button type="button" aria-pressed={board} onClick={() => setBoard((x) => !x)} className="button-secondary">{board ? "1 reserved" : "0 reserved"}</button></label>
-        <CountInput label="Daily-word reserve" value={daily} setValue={setDaily} /><CountInput label="Personal reserve" value={personal} setValue={setPersonal} />
-      </div>
-      <div className="mt-5 rounded-lg border border-cyan-300/25 bg-cyan-300/10 p-5" aria-live="polite"><strong className="text-2xl text-cyan-100">{spare ? `${spare} ${letter} ${spare === 1 ? "copy" : "copies"} may be spare` : "Keep for now"}</strong><p className="mt-2 text-sm text-white/70">Owned {count(ownedCopies)} − reserved {reserved} = {spare} conservative spare.</p></div>
-    </section>
-  </div>;
+function calculateCountdown(now: Date): Countdown {
+  const target = new Date(previewMilestone.startsAt);
+  if (Number.isNaN(target.getTime()) || now.getUTCFullYear() < 2025 || now.getUTCFullYear() > 2030) return null;
+  const difference = target.getTime() - now.getTime();
+  if (difference <= 0) return { days: 0, hours: 0, minutes: 0 };
+  return { days: Math.floor(difference / 86_400_000), hours: Math.floor((difference % 86_400_000) / 3_600_000), minutes: Math.floor((difference % 3_600_000) / 60_000) };
 }
 
-function CountInput({ label, value, setValue }: { label: string; value: string; setValue: (value: string) => void }) {
-  return <label className="grid gap-2"><span className="text-sm font-bold">{label}</span><input type="number" inputMode="numeric" min="0" max="99" value={value} onChange={(e) => setValue(e.target.value)} className="min-h-12 rounded-lg border border-white/15 bg-[#111827] px-3" /></label>;
+export function CalculatorTool() {
+  const [countdown, setCountdown] = useState<Countdown>(null);
+  const [clockReady, setClockReady] = useState(false);
+  const [query, setQuery] = useState("");
+  const [selectedState, setSelectedState] = useState<EvidenceState | "all">("all");
+
+  useEffect(() => {
+    const update = () => { setCountdown(calculateCountdown(new Date())); setClockReady(true); };
+    update();
+    const timer = window.setInterval(update, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const results = useMemo(() => {
+    const normalized = query.toLowerCase().replace(/[^a-z0-9/ ]/g, " ").replace(/\s+/g, " ").trim();
+    return featureRecords.filter((item) => selectedState === "all" || item.state === selectedState).filter((item) => !normalized || [item.title, ...item.aliases].join(" ").toLowerCase().includes(normalized)).sort((a, b) => stateOrder.indexOf(a.state) - stateOrder.indexOf(b.state) || a.order - b.order);
+  }, [query, selectedState]);
+
+  const dateReached = clockReady && countdown?.days === 0 && countdown.hours === 0 && countdown.minutes === 0;
+  return (
+    <div className="grid gap-8">
+      <section className="content-card" aria-labelledby="countdown-title">
+        <div className="flex flex-wrap items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Official date</p><h2 id="countdown-title" className="mt-2 text-2xl font-extrabold text-white">September 19 preview countdown</h2></div><span className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs font-bold text-amber-200">Start time not confirmed</span></div>
+        <div className="mt-6 grid grid-cols-3 gap-3" aria-live="polite">
+          {(["days", "hours", "minutes"] as const).map((unit) => <div key={unit} className="rounded-2xl border border-cyan-300/15 bg-cyan-300/5 p-4 text-center"><strong className="block min-h-10 text-3xl text-white">{clockReady && countdown ? countdown[unit] : "—"}</strong><span className="text-xs font-bold uppercase tracking-wider text-white/55">{unit}</span></div>)}
+        </div>
+        <div className="mt-5 rounded-xl border border-white/10 bg-black/20 p-4"><p className="font-bold text-white">{dateReached ? "Preview date reached — verify official status" : "Before preview"}</p><p className="mt-2 text-sm leading-6 text-white/65">The date is official, but no exact UTC start time or end time is published in our current source set. This clock uses midnight UTC only as a provisional date boundary and never claims the preview is live.</p><div className="mt-4 flex flex-wrap gap-3 text-sm"><a className="text-cyan-300 hover:underline" href={previewMilestone.sourceUrl} rel="noreferrer" target="_blank">Official announcement</a><span className="text-white/50">Last checked {previewMilestone.checkedDate}</span><Link className="text-cyan-300 hover:underline" href="/preview">Preview guide</Link></div></div>
+      </section>
+
+      <section className="content-card" aria-labelledby="evidence-title">
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-300">Evidence explorer</p><h2 id="evidence-title" className="mt-2 text-2xl font-extrabold text-white">What do we actually know?</h2><p className="mt-3 max-w-3xl text-sm leading-6 text-white/65">Search the current tracker. Original Black 2 / White 2 features are not treated as PokeMMO features unless the MMO evidence supports them.</p>
+        <label className="mt-6 grid gap-2"><span className="text-sm font-bold text-white">Search tracked features</span><input value={query} onChange={(event) => setQuery(event.target.value)} className="min-h-11 rounded-xl border border-white/15 bg-[#08111f] px-4 text-white outline-none focus:border-cyan-300" placeholder="Try preview, PWT, client, or legendaries" type="search" /></label>
+        <div className="mt-4 flex flex-wrap gap-2" aria-label="Filter by evidence state"><button type="button" aria-pressed={selectedState === "all"} onClick={() => setSelectedState("all")} className={selectedState === "all" ? "button-primary" : "button-secondary"}>All ({featureRecords.length})</button>{stateOrder.map((state) => { const count = featureRecords.filter((item) => item.state === state).length; return <button key={state} type="button" aria-pressed={selectedState === state} onClick={() => setSelectedState(state)} className={selectedState === state ? "button-primary" : "button-secondary"}>{stateLabels[state]} ({count})</button>; })}</div>
+        <p className="mt-5 text-sm text-white/55" aria-live="polite">{results.length} tracked {results.length === 1 ? "item" : "items"}</p>
+        <div className="mt-3 grid gap-4 md:grid-cols-2">{results.map((item) => <article key={item.id} className="rounded-2xl border border-white/10 bg-white/[0.035] p-5"><div className="flex items-center justify-between gap-3"><h3 className="font-extrabold text-white">{item.title}</h3><span className={`status-pill status-${item.state}`}>{stateLabels[item.state]}</span></div><p className="mt-3 text-sm leading-6 text-white/65">{item.summary}</p><div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-white/50"><span>{item.sourceLabel}</span><span>Checked {item.checkedDate}</span>{item.sourceUrl ? <a className="text-cyan-300 hover:underline" href={item.sourceUrl} rel="noreferrer" target="_blank">Open source</a> : null}</div></article>)}</div>
+        {results.length === 0 ? <div className="mt-4 rounded-xl border border-dashed border-white/15 p-6 text-sm text-white/65">No matching tracked feature. Check the <Link className="text-cyan-300 hover:underline" href="/sources">source ledger</Link> or <Link className="text-cyan-300 hover:underline" href="/contact">send a correction</Link>.</div> : null}
+      </section>
+    </div>
+  );
 }

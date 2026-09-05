@@ -448,8 +448,8 @@ export function AdsterraPopunderGate() {
     if (cleanAdRoute) return;
     if (!runtimeConfig.adsterraEnablePopunder || !runtimeConfig.adsterraPopunderScriptUrl) return;
 
-    const pageViewsKey = "roblox-site-adsterra-pageviews";
-    const loadedKey = "roblox-site-adsterra-popunder-loaded";
+    const pageViewsKey = "bw2-signal-adsterra-pageviews";
+    const loadedKey = "bw2-signal-adsterra-popunder-loaded";
     const nextPageViews = Number(window.sessionStorage.getItem(pageViewsKey) || "0") + 1;
     window.sessionStorage.setItem(pageViewsKey, String(nextPageViews));
 

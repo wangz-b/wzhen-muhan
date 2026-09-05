@@ -1,6 +1,6 @@
 # Advertising Display Plan
 
-This site uses the station Adsterra layout standard for CollectLetters.
+This site uses the station Adsterra layout standard for PokeMMO BW2.
 
 ## Revenue-Priority Standard
 
@@ -14,11 +14,11 @@ This site uses the station Adsterra layout standard for CollectLetters.
 | pageFamily | routes | visibleSlots | maxVisibleSlots |
 |---|---|---|---|
 | home | / | top_native_priority, mid_300x250, bottom_responsive_support | 3 |
-| commercial_hub | /codes, /tier-list, /trello, /updates | top_native_priority, mid_300x250, bottom_responsive_support | 3 |
+| commercial_hub | /preview, /features, /features/side-content, /download, /codes, /tier-list, /trello, /updates | top_native_priority, mid_300x250, bottom_responsive_support | 3 |
 | guide_wiki_index | /guides, /wiki | top_native_priority, mid_300x250, bottom_responsive_support | 3 |
 | guide_wiki_topic | /guides/*, /wiki/* | top_native_priority, mid_300x250, bottom_responsive_support | 3 |
 | planned_long_tail | pageGenerationPlan publishable routes | top_native_priority, mid_300x250, bottom_responsive_support | 3 |
-| interactive_tool | /calculator, /squad-planner, /resource-calculator | tool_native_priority, tool_bottom_300x250 | 2 |
+| interactive_tool | /calculator | tool_native_priority, tool_bottom_300x250 | 2 |
 | clean_trust | /about, /contact, /disclosure, /privacy, /sources, /terms | none | 0 |
 
 ## Global Gates

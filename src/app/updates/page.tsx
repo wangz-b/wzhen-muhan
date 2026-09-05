@@ -6,8 +6,8 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs, PageIntro, SectionHeader } from "@/components/ui/content";
 
 export const metadata: Metadata = {
-  title: `${siteConfig.gameName} Updates (September 2026)`,
-  description: `Track ${siteConfig.gameName} codes, trading and mutation update themes with checked dates and clear confidence labels.`,
+  title: `${siteConfig.gameName} Updates and Preview Timeline`,
+  description: `Track the official ${siteConfig.gameName} announcement, September 19 preview date, and unresolved launch questions.`,
   alternates: { canonical: `${siteConfig.domain}/updates` }
 };
 
@@ -18,16 +18,16 @@ export default function UpdatesPage() {
       <Breadcrumbs items={[{ label: "Updates", href: "/updates" }]} />
       <PageIntro
         eyebrow="Updates"
-        title={`${siteConfig.gameName} Latest Updates`}
-        description="Current Roblox presentation highlights trading and mutations. Use this watch page to re-check codes, mutation claims, and progression advice after changes. Checked September 5, 2026."
+        title={`${siteConfig.gameName} Update Timeline`}
+        description="A dated record of what PokeMMO has announced, what the September preview means, and which details still need official confirmation."
       />
       <AdsterraArticleTop />
 
       <section className="mt-10">
         <SectionHeader
           eyebrow="What changed"
-          title="Check the pages most likely to move"
-          copy="Codes, rankings, wiki entries, and farming advice can change after updates. Keep the newest practical answer visible and mention older reports only when they help players avoid mistakes."
+          title="Two official milestones, several open questions"
+          copy="The preview announcement establishes a date, but it does not establish final launch timing, exact event hours, progress persistence, or a complete feature list."
         />
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           {updateCards.map((item) => (
@@ -43,16 +43,16 @@ export default function UpdatesPage() {
 
       <section className="mt-12 grid gap-4 md:grid-cols-3">
         <article className="content-card">
-          <h2 className="text-xl font-bold text-white">Codes</h2>
-          <p className="mt-3 text-sm leading-6 text-white/66">Check whether a new update added, expired, or changed rewards before publishing a code as active.</p>
+          <h2 className="text-xl font-bold text-white">August 19, 2026</h2>
+          <p className="mt-3 text-sm leading-6 text-white/66">PokeMMO announced B2/W2 and named a Preview Weekend for September 19. This is the first official milestone tracked here.</p>
         </article>
         <article className="content-card">
-          <h2 className="text-xl font-bold text-white">Meta and rankings</h2>
-          <p className="mt-3 text-sm leading-6 text-white/66">Refresh progression priorities when packs, Luck, Pack Speed, letter income, mutations, or trading behavior changes.</p>
+          <h2 className="text-xl font-bold text-white">September 19, 2026</h2>
+          <p className="mt-3 text-sm leading-6 text-white/66">The announced preview date. It is not presented here as the final B2/W2 release date, and an exact start time is still unconfirmed.</p>
         </article>
         <article className="content-card">
-          <h2 className="text-xl font-bold text-white">Official and community links</h2>
-          <p className="mt-3 text-sm leading-6 text-white/66">Separate official Roblox or creator-owned information from community reports, video tests, and older wiki pages.</p>
+          <h2 className="text-xl font-bold text-white">Next verification pass</h2>
+          <p className="mt-3 text-sm leading-6 text-white/66">Watch official PokeMMO channels for event hours, access steps, required files, persistence rules, final release timing, and implemented side content.</p>
         </article>
       </section>
       <AdsterraArticleBottom />
