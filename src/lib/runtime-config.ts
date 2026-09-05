@@ -15,6 +15,11 @@ function readNumberEnv(value: string | undefined, fallback: number): number {
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
 }
 
+const defaultAdsterraSmartLinkUrl =
+  "https://www.profitableratecpmnetwork.com/f3ceyq6h?key=6fe917c3576149efd6983d504c788542";
+const defaultAdsterraPopunderScriptUrl =
+  "https://pl31114856.profitableratecpmnetwork.com/f5/d3/3a/f5d33a6c9c7af1b456e94e54966befcf.js";
+
 export const runtimeConfig = {
   adsterraBannerId: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_BANNER_ID),
   adsterraBanner300x250Key:
@@ -36,9 +41,10 @@ export const runtimeConfig = {
   adsterraNative1Id: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_NATIVE_1_ID),
   adsterraNative1ScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_NATIVE_1_SCRIPT_URL),
   adsterraLeaderboardId: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_LEADERBOARD_ID),
-  adsterraSmartLinkUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_SMARTLINK_URL),
-  adsterraPopunderScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_POPUNDER_SCRIPT_URL),
-  adsterraEnablePopunder: readBooleanEnv(process.env.NEXT_PUBLIC_ADSTERRA_ENABLE_POPUNDER, false),
+  adsterraSmartLinkUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_SMARTLINK_URL) || defaultAdsterraSmartLinkUrl,
+  adsterraPopunderScriptUrl:
+    readEnv(process.env.NEXT_PUBLIC_ADSTERRA_POPUNDER_SCRIPT_URL) || defaultAdsterraPopunderScriptUrl,
+  adsterraEnablePopunder: readBooleanEnv(process.env.NEXT_PUBLIC_ADSTERRA_ENABLE_POPUNDER, true),
   adsterraPopunderDelayMs: readNumberEnv(process.env.NEXT_PUBLIC_ADSTERRA_POPUNDER_DELAY_MS, 30000),
   adsterraPopunderMinPageViews: readNumberEnv(process.env.NEXT_PUBLIC_ADSTERRA_POPUNDER_MIN_PAGEVIEWS, 2),
   adsterraSocialBarScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_SOCIAL_BAR_SCRIPT_URL),

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AdsterraSmartLinkAnchor } from "@/components/ads";
 import { officialLinks, siteConfig } from "@/data/site";
 
 export function Footer() {
@@ -46,6 +47,7 @@ export function Footer() {
               <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
               <Link href="/terms" className="hover:text-white">Terms of Service</Link>
               <Link href="/disclosure" className="hover:text-white">Fan-made disclosure</Link>
+              <AdsterraSmartLinkAnchor className="hover:text-white">Sponsored offer</AdsterraSmartLinkAnchor>
             </div>
           </div>
         </div>
