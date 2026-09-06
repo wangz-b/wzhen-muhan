@@ -16,9 +16,14 @@ function readNumberEnv(value: string | undefined, fallback: number): number {
 }
 
 const defaultAdsterraSmartLinkUrl =
-  "https://www.profitableratecpmnetwork.com/f3ceyq6h?key=6fe917c3576149efd6983d504c788542";
+  "https://www.profitableratecpmnetwork.com/fdyavwn01t?key=ddabe2c8834c32650928b2b4ea6b7c7e";
 const defaultAdsterraPopunderScriptUrl =
-  "https://pl31114856.profitableratecpmnetwork.com/f5/d3/3a/f5d33a6c9c7af1b456e94e54966befcf.js";
+  "https://pl31209722.profitableratecpmnetwork.com/75/87/35/75873577d5db958addbe8dddf2ad0ec3.js";
+const defaultAdsterraNative1Id = "container-01c0ba56453b90c914a29cca5b40eb66";
+const defaultAdsterraNative1ScriptUrl =
+  "https://pl31209723.profitableratecpmnetwork.com/01c0ba56453b90c914a29cca5b40eb66/invoke.js";
+const defaultAdsterraSocialBarScriptUrl =
+  "https://pl31209725.profitableratecpmnetwork.com/e0/7b/33/e07b33d78730bf541a36774622d04a87.js";
 
 export const runtimeConfig = {
   adsterraBannerId: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_BANNER_ID),
@@ -38,8 +43,9 @@ export const runtimeConfig = {
   adsterraBanner160x300ScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_BANNER_160X300_SCRIPT_URL),
   adsterraBanner160x600Key: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_BANNER_160X600_KEY),
   adsterraBanner160x600ScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_BANNER_160X600_SCRIPT_URL),
-  adsterraNative1Id: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_NATIVE_1_ID),
-  adsterraNative1ScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_NATIVE_1_SCRIPT_URL),
+  adsterraNative1Id: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_NATIVE_1_ID) || defaultAdsterraNative1Id,
+  adsterraNative1ScriptUrl:
+    readEnv(process.env.NEXT_PUBLIC_ADSTERRA_NATIVE_1_SCRIPT_URL) || defaultAdsterraNative1ScriptUrl,
   adsterraLeaderboardId: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_LEADERBOARD_ID),
   adsterraSmartLinkUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_SMARTLINK_URL) || defaultAdsterraSmartLinkUrl,
   adsterraPopunderScriptUrl:
@@ -47,8 +53,9 @@ export const runtimeConfig = {
   adsterraEnablePopunder: readBooleanEnv(process.env.NEXT_PUBLIC_ADSTERRA_ENABLE_POPUNDER, true),
   adsterraPopunderDelayMs: readNumberEnv(process.env.NEXT_PUBLIC_ADSTERRA_POPUNDER_DELAY_MS, 30000),
   adsterraPopunderMinPageViews: readNumberEnv(process.env.NEXT_PUBLIC_ADSTERRA_POPUNDER_MIN_PAGEVIEWS, 2),
-  adsterraSocialBarScriptUrl: readEnv(process.env.NEXT_PUBLIC_ADSTERRA_SOCIAL_BAR_SCRIPT_URL),
-  adsterraEnableSocialBar: readBooleanEnv(process.env.NEXT_PUBLIC_ADSTERRA_ENABLE_SOCIAL_BAR, false),
+  adsterraSocialBarScriptUrl:
+    readEnv(process.env.NEXT_PUBLIC_ADSTERRA_SOCIAL_BAR_SCRIPT_URL) || defaultAdsterraSocialBarScriptUrl,
+  adsterraEnableSocialBar: readBooleanEnv(process.env.NEXT_PUBLIC_ADSTERRA_ENABLE_SOCIAL_BAR, true),
   adsterraEnableStickyRail: readBooleanEnv(process.env.NEXT_PUBLIC_ADSTERRA_ENABLE_STICKY_RAIL, false),
   analyticsId: readEnv(process.env.NEXT_PUBLIC_ANALYTICS_ID)
 };
